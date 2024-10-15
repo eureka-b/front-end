@@ -1,58 +1,124 @@
-.title {
-    font-family: "Julius Sans One", serif;
-    font-size: 70px;
-    color: #FF0000;
-}
-/* 홈 전체 컨테이너 */
-.home-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    background-color: #f9f9f9;
-  }
-  
-  /* 로고 및 제목 텍스트 컨테이너 */
-  .logo-container {
-    display: flex;
-    align-items: center;
-    margin-bottom: 20px;
-  }
-  
-  /* 로고 이미지 스타일 */
-  .logo-wrapper {
-    margin-right: 15px; /* 로고와 텍스트 사이의 간격 */
-  }
 
-  /* 입력 필드 스타일 */
-  .stock-input {
-    padding: 15px;
-    width: 300px;
-    font-size: 18px;
-    border-radius: 5px;
-    border: 1px solid #ddd;
-    margin-bottom: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    outline: none;
-    font-family: "Julius Sans One", serif;
-  }
-  
-  /* 버튼 스타일 */
-  .find-button {
-    background-color: #e74c3c;
-    color: white;
-    padding: 15px 40px;
-    font-size: 18px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: background-color 0.3s ease;
-    font-family: "Julius Sans One", serif;
-  }
-  
-  .find-button:hover {
-    background-color: #c0392b;
-  }
-  
+
+.home-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #f9f9f9;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.title {
+  font-size: 70px;
+  color: #e74c3c;
+  font-weight: bold;
+  margin: 0;
+  letter-spacing: 2px;
+  font-family: "Julius Sans One", serif;
+}
+
+.select-container {
+  display: flex;
+  position: relative; /* 기준이 되는 상대적인 위치를 설정 */
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 20px;
+}
+
+
+
+.detail-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  list-style-type: none;
+  padding-left: 0;
+  margin: 0;
+  position: absolute; /* 부모 컨테이너인 select-container를 기준으로 위치 설정 */
+  top: 0;
+  left: 100%; /* select 박스와 가로축 위치 맞추기 */
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  width: 200px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 100;
+}
+
+ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+li {
+  margin-bottom: 5px;
+  position: relative;
+}
+
+.find-button {
+  background-color: #e74c3c;
+  color: white;
+  padding: 15px 40px;
+  font-size: 18px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease;
+  font-family: "Julius Sans One", serif;
+}
+
+.custom-select {
+  padding: 10px;
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 200px;
+  text-align: center;
+  font-size: 16px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease;
+  font-family: "Julius Sans One", serif;
+}
+
+.custom-select:hover {
+  background-color: #f0f0f0;
+}
+
+/* category-list가 select 박스 아래에 나오도록 설정 */
+.category-list {
+  list-style-type: none;
+  padding-left: 0;
+  margin: 0;
+  position: absolute; /* 부모 컨테이너인 select-container를 기준으로 위치 설정 */
+  top: 100%; /* select 박스 바로 아래에서 시작 (100%는 부모의 높이를 기준으로) */
+  left: 0; /* select 박스와 가로축 위치 맞추기 */
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  width: 200px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 100;
+}
+
+.category-item {
+  padding: 10px;
+  background-color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.category-item:hover {
+  background-color: #e74c3c;
+  color: white;
+}
