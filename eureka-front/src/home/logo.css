@@ -1,0 +1,13 @@
+.logo-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 92px;
+    height: 87px;
+  }
+  
+  .logo-image {
+    width: 100%;
+    height: auto;
+  }
+  

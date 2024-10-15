@@ -1,0 +1,58 @@
+.title {
+    font-family: "Julius Sans One", serif;
+    font-size: 70px;
+    color: #FF0000;
+}
+/* 홈 전체 컨테이너 */
+.home-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #f9f9f9;
+  }
+  
+  /* 로고 및 제목 텍스트 컨테이너 */
+  .logo-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  /* 로고 이미지 스타일 */
+  .logo-wrapper {
+    margin-right: 15px; /* 로고와 텍스트 사이의 간격 */
+  }
+
+  /* 입력 필드 스타일 */
+  .stock-input {
+    padding: 15px;
+    width: 300px;
+    font-size: 18px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    outline: none;
+    font-family: "Julius Sans One", serif;
+  }
+  
+  /* 버튼 스타일 */
+  .find-button {
+    background-color: #e74c3c;
+    color: white;
+    padding: 15px 40px;
+    font-size: 18px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+    font-family: "Julius Sans One", serif;
+  }
+  
+  .find-button:hover {
+    background-color: #c0392b;
+  }
+  
