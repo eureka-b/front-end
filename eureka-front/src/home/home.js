@@ -40,7 +40,7 @@ function Home() {
   // 버튼 클릭 핸들러
   const handleButtonClick = () => {
     if (selectedStock) {
-      navigate(`/stockInfo?stock=${selectedStock}`); // 주식이 선택되었을 때 stockInfo 페이지로 이동
+       // 주식이 선택되었을 때 stockInfo 페이지로 이동
     } else {
       alert('Please select a stock');
     }
@@ -49,6 +49,7 @@ function Home() {
     setShowOptions(!showOptions);
   };
 
+  
 
   const handleFindDiningClick = () => {
     if (!selectedItem) {
@@ -62,6 +63,7 @@ function Home() {
     })
     .then(response => {
       console.log('Response:', response.data);
+      navigate(`/stockInfo?stock=${selectedStock}`);
       // alert('POST 요청 성공!');
     })
     .catch(error => {
@@ -116,7 +118,7 @@ function Home() {
 
       </div>
 
-      <button onClick={handleButtonClick} className="find-button">
+      <button onClick={handleFindDiningClick} className="find-button">
         Find Dining
       </button>
     </div>
