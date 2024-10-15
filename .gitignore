@@ -1,0 +1,56 @@
+# Node.js 의존성
+/node_modules
+
+# 빌드 출력물
+/build
+
+# npm 로그 파일들
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# 환경 변수 파일
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# 로컬 IDE/편집기 설정
+.vscode/
+.idea/
+
+# macOS 특유의 파일들
+.DS_Store
+
+# 로그 파일들
+*.log
+
+# 테스트 결과 폴더
+/coverage
+
+# Git 크래시 로그
+*.stackdump
+
+# 임시 파일들
+*.tmp
+*.swp
+*.lock
+
+# ESLint 및 Prettier 캐시
+.eslintcache
+.prettiercache
+
+# 빌드 툴(예: Webpack)이 생성하는 임시 파일들
+*.cache
+
+# Parcel 빌드 캐시 파일들
+.cache/
+.parcel-cache/
+
+# React Native 패키지들
+.expo/
+.expo-shared/
+
+# TypeScript 캐시 및 빌드 출력물
+*.tsbuildinfo
