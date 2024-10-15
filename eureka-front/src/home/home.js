@@ -9,6 +9,7 @@ function Home() {
   const [selectedStock, setSelectedStock] = useState(''); // 선택된 주식 상태
   const [hoveredCategory, setHoveredCategory] = useState(null);
   const [showOptions, setShowOptions] = useState(false); // 옵션을 보여줄지 결정하는 상태
+  const [selectedItem, setSelectedItem] = useState(''); // 선택된 세부 항목 저장
   const navigate = useNavigate();
 
   // 주식 목록을 불러오는 함수
@@ -24,6 +25,11 @@ function Home() {
 
   const handleMouseEnter = (category) => {
     setHoveredCategory(category);
+    // console.log(hoveredCategory)
+  };
+  const handleItemClick = (item) => {
+    setSelectedItem(item); // 선택된 세부 항목을 저장
+    setShowOptions(false); // 세부 항목 리스트 숨기기
   };
 
   // 주식 선택 변경 핸들러
@@ -42,6 +48,29 @@ function Home() {
   const toggleOptions = () => {
     setShowOptions(!showOptions);
   };
+
+
+  const handleFindDiningClick = () => {
+    if (!selectedItem) {
+      alert('Please select a category first.');
+      return;
+    }
+
+    // POST 요청 보내기
+    axios.post('http://localhost:8000/likedSector', {
+      selectedCategory: selectedItem // 선택된 세부 항목을 POST 요청에 포함
+    })
+    .then(response => {
+      console.log('Response:', response.data);
+      // alert('POST 요청 성공!');
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      alert('POST 요청 실패!');
+    });
+  };
+
+
   return (
     <div className="home-container">
       <div className="logo-container">
@@ -52,7 +81,7 @@ function Home() {
       {/* 커스텀 select 박스 */}
       <div className="select-container">
         <div className="custom-select" onClick={toggleOptions}>
-          Select a category
+          {selectedItem || 'Select a category'}
         </div>
 
         {/* 옵션 리스트 (드롭다운 메뉴) */}
@@ -67,11 +96,14 @@ function Home() {
                 {category.분류}
 
                 {/* 오른쪽에 세부 항목 표시 */}
-                {hoveredCategory === category && ( // hover된 분류와 일치할 때만 출력
+                {hoveredCategory?.분류 === category.분류 && ( // hover된 분류와 일치할 때만 출력
                   <div className="detail-container">
                     <ul>
-                      {hoveredCategory["세부 항목"].map((item, idx) => ( // 최대 3개의 항목만 표시
-                        <li key={idx}>{item}</li>
+                      {hoveredCategory["세부 항목"].map((item, idx) => (
+                        <li key={idx}
+                            className="detail-list"
+                            onClick={() => handleItemClick(item)}
+                        >{item}</li>
                       ))}
                     </ul>
                   </div>

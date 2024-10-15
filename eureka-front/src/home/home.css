@@ -39,7 +39,7 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-
+  color: black;
   list-style-type: none;
   padding-left: 0;
   margin: 0;
@@ -52,6 +52,31 @@
   width: 200px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   z-index: 100;
+  text-align: center;
+}
+
+.detail-list {
+  display: flex;
+  flex-direction: column;
+  /* align-items: flex-start; */
+  color: black;
+  list-style-type: none;
+  padding-left: 0;
+  margin: 0;
+  position: relative; 
+  top: 0;
+  left: 0;
+  background-color: white;
+  width: 200px;
+  z-index: 100;
+  transition: background-color 0.3s ease;
+
+}
+
+.detail-list:hover {
+  background-color: #e74c3c;
+  color: white;
+  transition: background-color 0.3s ease;
 }
 
 ul {
@@ -91,6 +116,11 @@ li {
   font-family: "Julius Sans One", serif;
 }
 
+.custom-select {
+  font-family: "Noto Sans KR", sans-serif;
+  unicode-range: U+1100-11FF, U+3130-318F, U+A960-A97F, U+AC00-D7A3, U+D7B0-D7FF;
+}
+
 .custom-select:hover {
   background-color: #f0f0f0;
 }
@@ -106,9 +136,11 @@ li {
   background-color: white;
   border: 1px solid #ddd;
   border-radius: 5px;
-  width: 200px;
+  width: 100%;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   z-index: 100;
+  font-family: "Noto Sans KR", sans-serif;
+  text-align: center;
 }
 
 .category-item {
