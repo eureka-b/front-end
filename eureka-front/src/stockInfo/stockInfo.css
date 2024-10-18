@@ -1,0 +1,114 @@
+/* 전체 컨테이너 */
+.stocks-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    height: 100vh;
+    padding: 20px;
+    background-color: #fff;
+    font-family: "Noto Sans KR", sans-serif;
+    
+    background: radial-gradient(circle 400px, rgba(255,0,0,0.4), transparent); /* 배경 효과 */
+  }
+  
+  /* 타이틀 텍스트 */
+.stocks-title {
+    font-size: 40px;
+    font-weight: bold;
+    margin-bottom: 40px;
+    color: black;
+    font-family: "Julius Sans One", serif;
+
+  }
+  
+  /* 주식 목록 (중앙의 주식 이름들) */
+.stocks-list {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 20px;
+    position: relative;
+    font-family: "Noto Sans KR", sans-serif;
+    height: 100%;
+    width: 100%;
+    align-items: center;
+    
+  }
+
+  /* 설명 텍스트 */
+.description {
+    margin-top: 50px;
+    width: 70%;
+    color: #999;
+    font-size: 14px;
+    line-height: 1.6;
+    text-align: justify;
+    font-family: "Noto Sans KR", sans-serif;
+
+  }
+  
+.stocks {
+    color: black;
+    opacity: 0.9;
+    height: 80px;
+    display: inline-block;
+    margin: 0 10px;
+    white-space: nowrap; /* 텍스트가 줄바꿈되지 않도록 */
+    animation-timing-function: cubic-bezier(0.42, 0, 0.58, 1);
+
+  }
+@keyframes float1 {
+  0% { transform: translate(0px, 0px); }
+  20% { transform: translate(100px, 0px); }
+  25% { transform: translate(110px, 10px); }
+  30% { transform: translate(110px, 20px); }
+  45% { transform: translate(60px, -90px); }
+  50% { transform: translate(50px, -100px); }
+  50% { transform: translate(40px, -115px); }
+  70% { transform: translate(-90px, 40px); }
+  75% { transform: translate(-100px, 50px); }
+  80% { transform: translate(-110px, 70px); }
+  100% { transform: translate(0px, 0px); }
+}
+
+@keyframes float2 {
+  0% { transform: rotate(0deg) translate(100px) rotate(0deg); }
+  25% { transform: rotate(90deg) translate(100px) rotate(-90deg); }
+  50% { transform: rotate(180deg) translate(100px) rotate(-180deg); }
+  75% { transform: rotate(270deg) translate(100px) rotate(-270deg); }
+  100% { transform: rotate(360deg) translate(100px) rotate(-360deg); }
+}
+
+@keyframes float3 {
+  0% { transform: translate(-100px, 100px); }
+  25% { transform: translate(100px, -100x); }
+  50% { transform: translate(100px, 100px); }
+  75% { transform: translate(-100px, -100px); }
+  100% { transform: translate(-100px, 100px); }
+}
+  
+  /* 각각의 주식 이름에 대한 스타일 */
+.stock-small {
+    font-size: 20px;
+    color: black;
+    opacity: 0.8;
+    animation: float3 10s infinite ease-in-out; /* 움직임 애니메이션 */
+  }
+  
+.stock-large {
+    font-size: 80px;
+    font-weight: bold;
+    color: black;
+    padding: 20px;
+    animation: float1 10s infinite linear; /* 움직임 애니메이션 */
+  }
+  
+.stock-medium {
+    font-size: 40px;
+    color: black;
+    opacity: 0.9;
+    animation: float2 20s infinite ease-in-out; /* 움직임 애니메이션 */
+  }
+  

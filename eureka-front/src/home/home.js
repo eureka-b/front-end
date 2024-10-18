@@ -38,13 +38,7 @@ function Home() {
   };
 
   // 버튼 클릭 핸들러
-  const handleButtonClick = () => {
-    if (selectedStock) {
-       // 주식이 선택되었을 때 stockInfo 페이지로 이동
-    } else {
-      alert('Please select a stock');
-    }
-  };
+  
   const toggleOptions = () => {
     setShowOptions(!showOptions);
   };
@@ -56,19 +50,21 @@ function Home() {
       alert('Please select a category first.');
       return;
     }
-
-    // POST 요청 보내기
-    axios.post('http://localhost:8000/likedSector', {
-      selectedCategory: selectedItem // 선택된 세부 항목을 POST 요청에 포함
-    })
+    
+    // get 요청 보내기
+    axios.get(`http://localhost:8000/likedSector/gpt?sector=${selectedItem}`)
     .then(response => {
+      if(!response){
+        console.log("response 없음")
+      }
       console.log('Response:', response.data);
-      navigate(`/stockInfo?stock=${selectedStock}`);
-      // alert('POST 요청 성공!');
+      // alert('get 요청 성공!');
+      localStorage.setItem('gptResponse', response.data.response.choices[0].message.content);
+      navigate(`/stockInfo?stock=${selectedItem}`);
     })
     .catch(error => {
       console.error('Error:', error);
-      alert('POST 요청 실패!');
+      alert('GET 요청 실패!');
     });
   };
 
