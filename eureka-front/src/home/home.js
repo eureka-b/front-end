@@ -11,6 +11,8 @@ function Home() {
   const [showOptions, setShowOptions] = useState(false); // 옵션을 보여줄지 결정하는 상태
   const [selectedItem, setSelectedItem] = useState(''); // 선택된 세부 항목 저장
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false); // 로딩 상태 관리
+
 
   // 주식 목록을 불러오는 함수
   useEffect(() => {
@@ -52,20 +54,27 @@ function Home() {
     }
     
     // get 요청 보내기
-    axios.get(`http://localhost:8000/likedSector/gpt?sector=${selectedItem}`)
-    .then(response => {
-      if(!response){
-        console.log("response 없음")
-      }
-      console.log('Response:', response.data);
-      // alert('get 요청 성공!');
-      localStorage.setItem('gptResponse', response.data.response.choices[0].message.content);
-      navigate(`/stockInfo?stock=${selectedItem}`);
-    })
-    .catch(error => {
-      console.error('Error:', error);
-      alert('GET 요청 실패!');
-    });
+    try {
+      setIsLoading(true); // 로딩 시작
+      axios.get(`http://localhost:8000/likedSector/gpt?sector=${selectedItem}`)
+      .then(response => {
+        if(!response){
+          console.log("response 없음")
+        }
+        console.log('Response:', response.data);
+        // alert('get 요청 성공!');
+        localStorage.setItem('gptResponse', response.data.response.choices[0].message.content);
+        navigate(`/stockInfo?stock=${selectedItem}`);
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        alert('GET 요청 실패!');
+      });
+    } catch (error) {
+      console.error('Error fetching data:', error);
+      setIsLoading(false); // 에러가 발생하면 로딩 종료
+    }
+    
   };
 
 
@@ -117,6 +126,12 @@ function Home() {
       <button onClick={handleFindDiningClick} className="find-button">
         Find Dining
       </button>
+      {isLoading && (
+        <div className="loading-container">
+          <div className="spinner"></div>
+          <p className="loading-message">Loading...</p>
+        </div>
+      )}
     </div>
   );
 }

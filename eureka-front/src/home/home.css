@@ -155,3 +155,57 @@ li {
   background-color: #e74c3c;
   color: white;
 }
+/* 로딩 오버레이 */
+.loading-container {
+  position: fixed; /* 화면 전체를 덮는 오버레이 */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8); /* 더 어두운 반투명 배경 */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000; /* 가장 앞에 오도록 설정 */
+}
+
+/* 스피너 스타일 */
+.spinner {
+  border: 4px solid rgba(255, 255, 255, 0.2);
+  border-left-color: white;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+}
+
+.loading-message {
+  color: white; /* 흰색 텍스트로 대비 높이기 */
+  font-size: 24px; /* 글자 크기 키우기 */
+  font-weight: bold; /* 굵은 글씨 */
+  animation: pulse 1.5s infinite; /* 텍스트에 펄스 효과 추가 */
+}
+
+/* 스피너 애니메이션 */
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* 펄스 애니메이션 */
+@keyframes pulse {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
+  100% {
+    opacity: 1;
+  }
+}
