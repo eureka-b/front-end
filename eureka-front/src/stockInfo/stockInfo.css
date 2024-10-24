@@ -39,21 +39,25 @@
 
   /* 설명 텍스트 */
 .description {
-    margin-top: 50px;
+    margin-top: 0px;
     width: 70%;
+    padding: 30px;
     height: 150px;
-    background-color: aliceblue;
-    border: 2px solid black;
-    border-radius: 15px;
-    color: #999;
+    background: rgba(255, 255, 255, 0.2); /* 반투명 배경 */
+    border-radius: 20px;
+    backdrop-filter: blur(10px); /* 유리모피즘 효과 */
+    box-shadow: 0 4px 32px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: #333;
     font-size: 20px;
     line-height: 1.6;
     text-align: justify;
     font-family: "Noto Sans KR", sans-serif;
     text-align: center;
-
+    transition: all 0.3s ease-in-out;
   }
-  
+
+
 .stocks {
     color: black;
     opacity: 0.9;
@@ -68,14 +72,59 @@
 
   }
 
-@keyframes float {
+@keyframes float1 {
   0% { transform: rotate(0deg) translate(10px) rotate(0deg); }
   25% { transform: rotate(90deg) translate(10px) rotate(-90deg); }
   50% { transform: rotate(180deg) translate(10px) rotate(-180deg); }
   75% { transform: rotate(270deg) translate(10px) rotate(-270deg); }
   100% { transform: rotate(360deg) translate(10px) rotate(-360deg); }
 }
-.stocks:hover {
-    font-size: 100px;
+
+@keyframes float2 {
+  0% { transform: rotate(0deg) translate(10px) rotate(0deg); }
+  25% { transform: rotate(90deg) translate(10px) rotate(-90deg); }
+  50% { transform: rotate(180deg) translate(10px) rotate(-180deg); }
+  75% { transform: rotate(270deg) translate(10px) rotate(-270deg); }
+  100% { transform: rotate(360deg) translate(10px) rotate(-360deg); }
 }
-  
+
+@keyframes float3 {
+  0% { transform: rotate(0deg) translate(10px) rotate(0deg); }
+  25% { transform: rotate(90deg) translate(10px) rotate(-90deg); }
+  50% { transform: rotate(180deg) translate(10px) rotate(-180deg); }
+  75% { transform: rotate(270deg) translate(10px) rotate(-270deg); }
+  100% { transform: rotate(360deg) translate(10px) rotate(-360deg); }
+}
+
+@keyframes float4 {
+  0% { transform: rotate(0deg) translate(10px) rotate(0deg); }
+  25% { transform: rotate(90deg) translate(10px) rotate(-90deg); }
+  50% { transform: rotate(180deg) translate(10px) rotate(-180deg); }
+  75% { transform: rotate(270deg) translate(10px) rotate(-270deg); }
+  100% { transform: rotate(360deg) translate(10px) rotate(-360deg); }
+}
+
+@keyframes float5 {
+  0% { transform: rotate(0deg) translate(10px) rotate(0deg); }
+  25% { transform: rotate(90deg) translate(10px) rotate(-90deg); }
+  50% { transform: rotate(180deg) translate(10px) rotate(-180deg); }
+  75% { transform: rotate(270deg) translate(10px) rotate(-270deg); }
+  100% { transform: rotate(360deg) translate(10px) rotate(-360deg); }
+}
+
+@keyframes float0 {
+  0% { transform: rotate(0deg) translate(10px) rotate(0deg); }
+  25% { transform: rotate(90deg) translate(10px) rotate(-90deg); }
+  50% { transform: rotate(180deg) translate(10px) rotate(-180deg); }
+  75% { transform: rotate(270deg) translate(10px) rotate(-270deg); }
+  100% { transform: rotate(360deg) translate(10px) rotate(-360deg); }
+}
+
+.gpt-comment-title {
+  align-self: flex-start; /* 왼쪽 정렬 */
+  margin-left: 15%; /* 적당한 여백 */
+  font-size: 20px;
+  font-weight: 600;
+  color: #333;
+  margin-top: 50px;
+}
