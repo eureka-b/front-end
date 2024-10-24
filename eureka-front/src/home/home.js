@@ -94,7 +94,7 @@ function Home() {
     // get 요청 보내기
     try {
       setIsLoading(true); // 로딩 시작
-      axios.get(`http://localhost:8000/likedSector/gpt?sector=${selectedItem}`)
+      axios.get(`${process.env.REACT_APP_API_URL}/likedSector/gpt?sector=${selectedItem}`)
         .then(response => {
           if (!response) {
             console.log("response 없음")

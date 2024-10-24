@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './stockInfo.css'; // 스타일을 위한 CSS 파일 임포트
+import StockDetail from './stockDetail';
+import axios from 'axios'; // Axios 사용
 
 
 
@@ -43,10 +45,12 @@ const randomDuration = Math.random() * 10 + 10;
 
 function StockInfo() {
   console.log("reload...")
+  
+  const [price, setPrice] = useState([]);
   const gptResponse = JSON.parse(localStorage.getItem('gptResponse'));
   // const fontClasses = ['stock-large', 'stock-medium', 'stock-small'];
-  const [selectedInfo, setSelectedInfo] = useState(null); // 선택된 정보 저장
-
+  const [selectedInfo, setSelectedInfo] = useState([]); // 선택된 정보 저장
+  const [detail, setDetail] = useState({});
   // console.log(Object.entries(gptResponse));
 
   const [positions, setPositions] = useState([]);
@@ -64,12 +68,30 @@ function StockInfo() {
     // console.log(newPositions);
   }, []);
 
-
   const handleStockClick = (index) => {
     // 주식이 클릭되면 해당 정보를 선택
     const stockInfo = Object.entries(gptResponse).slice(1)[index][1];
+    axios.get(`${process.env.REACT_APP_API_URL}/likedSector/stockPrice/name=${Object.entries(gptResponse).slice(1)[index][0]}`)
+        .then(response => {
+          if (!response) {
+            console.log("response 없음")
+          }
+          console.log('Response:', response);
+          setPrice(response.data)
+          // alert('get 요청 성공!');
+          })
+        .catch(error => {
+          console.error('Error:', error);
+          alert('GET 요청 실패!');
+        });
+        setDetail({name: Object.entries(gptResponse).slice(1)[index][0],
+                    description: Object.entries(gptResponse).slice(1)[index][1],
+                    priceData: price
+    });
     setSelectedInfo(stockInfo);
   };
+
+  const closeDetail = () => setDetail(null); // 모달 닫기
 
   const [hoveredIndex, setHoveredIndex] = useState(null); // 어떤 항목에 마우스가 올라갔는지
 
@@ -80,6 +102,9 @@ function StockInfo() {
   const handleMouseLeave = () => {
     setHoveredIndex(null); // 마우스가 떠나면 초기화
   };
+  // console.log("selected : ", selectedInfo)
+
+  
 
   return (
     <div className="stocks-container">
@@ -106,14 +131,16 @@ function StockInfo() {
           </span>
         ))}
       </div>
-      <div className="gpt-comment-title">GPT의 한마디</div>
+
+      <StockDetail stock={detail} onClose={closeDetail} />
+      {/* <div className="gpt-comment-title">GPT의 한마디</div>
       <div className="description">
         {selectedInfo ? (
           <p>{selectedInfo}</p> // 선택된 주식의 정보 표시
         ) : (
           <p>주식을 클릭하면 해당 주식의 ChatGPT의 추천 이유가 표시됩니다.</p>
         )}
-      </div>
+      </div> */}
     </div>
   );
 }

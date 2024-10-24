@@ -81,43 +81,46 @@
 }
 
 @keyframes float2 {
-  0% { transform: rotate(0deg) translate(10px) rotate(0deg); }
-  25% { transform: rotate(90deg) translate(10px) rotate(-90deg); }
-  50% { transform: rotate(180deg) translate(10px) rotate(-180deg); }
-  75% { transform: rotate(270deg) translate(10px) rotate(-270deg); }
-  100% { transform: rotate(360deg) translate(10px) rotate(-360deg); }
+  0% { transform: rotate(360deg) translate(10px) rotate(-360deg); }
+  25% { transform: rotate(50deg) translate(10px) rotate(-50deg); }
+  50% { transform: rotate(100deg) translate(10px) rotate(-100deg); }
+  75% { transform: rotate(200deg) translate(10px) rotate(-200deg); }
+  100% { transform: rotate(300deg) translate(10px) rotate(-300deg); }
+  
 }
 
 @keyframes float3 {
-  0% { transform: rotate(0deg) translate(10px) rotate(0deg); }
-  25% { transform: rotate(90deg) translate(10px) rotate(-90deg); }
-  50% { transform: rotate(180deg) translate(10px) rotate(-180deg); }
-  75% { transform: rotate(270deg) translate(10px) rotate(-270deg); }
-  100% { transform: rotate(360deg) translate(10px) rotate(-360deg); }
+  0% { transform: rotate(270deg) translate(10px) rotate(-270deg); }
+  25% { transform: rotate(360deg) translate(10px) rotate(-360deg); }
+  50% { transform: rotate(90deg) translate(10px) rotate(-90deg); }
+  75% { transform: rotate(180deg) translate(10px) rotate(-180deg); }
+  100% { transform: rotate(270deg) translate(10px) rotate(-270deg); }
+  
 }
 
 @keyframes float4 {
-  0% { transform: rotate(0deg) translate(10px) rotate(0deg); }
-  25% { transform: rotate(90deg) translate(10px) rotate(-90deg); }
-  50% { transform: rotate(180deg) translate(10px) rotate(-180deg); }
-  75% { transform: rotate(270deg) translate(10px) rotate(-270deg); }
-  100% { transform: rotate(360deg) translate(10px) rotate(-360deg); }
+  
+  0% { transform: rotate(180deg) translate(10px) rotate(-180deg); }
+  25% { transform: rotate(270deg) translate(10px) rotate(-270deg); }
+  50% { transform: rotate(360deg) translate(10px) rotate(-360deg); }
+  75% { transform: rotate(90deg) translate(10px) rotate(-90deg); }
+  100% { transform: rotate(180deg) translate(10px) rotate(-180deg); }
 }
 
 @keyframes float5 {
-  0% { transform: rotate(0deg) translate(10px) rotate(0deg); }
-  25% { transform: rotate(90deg) translate(10px) rotate(-90deg); }
-  50% { transform: rotate(180deg) translate(10px) rotate(-180deg); }
-  75% { transform: rotate(270deg) translate(10px) rotate(-270deg); }
-  100% { transform: rotate(360deg) translate(10px) rotate(-360deg); }
+  0% { transform: rotate(270deg) translate(10px) rotate(-270deg); }
+  25% { transform: rotate(0deg) translate(10px) rotate(0deg); }
+  40% { transform: rotate(90deg) translate(10px) rotate(-90deg); }
+  85% { transform: rotate(180deg) translate(10px) rotate(-180deg); }
+  100% { transform: rotate(270deg) translate(10px) rotate(-270deg); }
 }
 
 @keyframes float0 {
-  0% { transform: rotate(0deg) translate(10px) rotate(0deg); }
-  25% { transform: rotate(90deg) translate(10px) rotate(-90deg); }
-  50% { transform: rotate(180deg) translate(10px) rotate(-180deg); }
-  75% { transform: rotate(270deg) translate(10px) rotate(-270deg); }
-  100% { transform: rotate(360deg) translate(10px) rotate(-360deg); }
+  0% { transform: rotate(270deg) translate(10px) rotate(-270deg); }
+  15% { transform: rotate(360deg) translate(10px) rotate(-360deg); }
+  40% { transform: rotate(90deg) translate(10px) rotate(-90deg); }
+  65% { transform: rotate(180deg) translate(10px) rotate(-180deg); }
+  100% { transform: rotate(270deg) translate(10px) rotate(-270deg); }
 }
 
 .gpt-comment-title {
