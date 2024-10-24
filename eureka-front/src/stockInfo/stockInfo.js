@@ -54,6 +54,7 @@ function StockInfo() {
   // console.log(Object.entries(gptResponse));
 
   const [positions, setPositions] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false); // 모달 표시 여부 상태
   useEffect(() => {
     const radius = 200; // 원의 반지름
     const newPositions = [];
@@ -89,9 +90,13 @@ function StockInfo() {
                     priceData: price
     });
     setSelectedInfo(stockInfo);
+    setIsModalOpen(true); // 모달을 열기
+
   };
 
-  const closeDetail = () => setDetail(null); // 모달 닫기
+  const closeDetail = () => {
+    setIsModalOpen(false); // 모달 닫기
+  }; // 모달 닫기
 
   const [hoveredIndex, setHoveredIndex] = useState(null); // 어떤 항목에 마우스가 올라갔는지
 
@@ -132,7 +137,7 @@ function StockInfo() {
         ))}
       </div>
 
-      <StockDetail stock={detail} onClose={closeDetail} />
+      {isModalOpen && (<StockDetail stock={detail} onClose={closeDetail} />)}
       {/* <div className="gpt-comment-title">GPT의 한마디</div>
       <div className="description">
         {selectedInfo ? (

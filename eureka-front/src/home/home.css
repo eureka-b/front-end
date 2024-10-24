@@ -203,7 +203,7 @@ li {
 
 .progress-bar {
   width: 80%;
-  height: 20px;
+  height: 7px;
   background-color: #ddd;
   border-radius: 10px;
   overflow: hidden;
@@ -211,7 +211,7 @@ li {
 }
 .progress {
   height: 100%;
-  background-color: #4caf50;
+  background-color: #e74c3c;
   transition: width 1s ease-in-out;
 }
 .loading-message {

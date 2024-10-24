@@ -20,7 +20,7 @@ function getPastDates(days) {
 }
 
 function StockDetail({ stock, onClose }) {
-    if (!stock) return null; // stock 데이터가 없으면 아무것도 렌더링하지 않음
+    if (!stock || !stock.priceData.length) return null; // stock 데이터가 없으면 아무것도 렌더링하지 않음
     console.log('stock : ', stock)
     // 차트 데이터
     const chartData = {
