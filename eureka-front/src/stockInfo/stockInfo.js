@@ -45,7 +45,7 @@ const randomDuration = Math.random() * 10 + 10;
 
 function StockInfo() {
   console.log("reload...")
-  
+
   const [price, setPrice] = useState([]);
   const gptResponse = JSON.parse(localStorage.getItem('gptResponse'));
   // const fontClasses = ['stock-large', 'stock-medium', 'stock-small'];
@@ -69,30 +69,33 @@ function StockInfo() {
     // console.log(newPositions);
   }, []);
 
-  const handleStockClick = (index) => {
+  const handleStockClick = async (index) => {
     // 주식이 클릭되면 해당 정보를 선택
-    const stockInfo = Object.entries(gptResponse).slice(1)[index][1];
-    axios.get(`${process.env.REACT_APP_API_URL}/likedSector/stockPrice/name=${Object.entries(gptResponse).slice(1)[index][0]}`)
-        .then(response => {
-          if (!response) {
-            console.log("response 없음")
-          }
-          console.log('Response:', response);
-          setPrice(response.data)
-          // alert('get 요청 성공!');
-          })
-        .catch(error => {
-          console.error('Error:', error);
-          alert('GET 요청 실패!');
+    await axios.get(`${process.env.REACT_APP_API_URL}/likedSector/stockPrice/name=${Object.entries(gptResponse).slice(1)[index][0]}`)
+      .then(response => {
+        if (!response) {
+          console.log("response 없음")
+        }
+        console.log('Response:', response);
+        setDetail({
+          name: Object.entries(gptResponse).slice(1)[index][0],
+          description: Object.entries(gptResponse).slice(1)[index][1],
+          priceData: response.data
         });
-        setDetail({name: Object.entries(gptResponse).slice(1)[index][0],
-                    description: Object.entries(gptResponse).slice(1)[index][1],
-                    priceData: price
-    });
-    setSelectedInfo(stockInfo);
-    setIsModalOpen(true); // 모달을 열기
+        const stockInfo = Object.entries(gptResponse).slice(1)[index][1];
+        setSelectedInfo(stockInfo);
+        setIsModalOpen(true); // 모달을 열기
+        console.log('price : ', price)
+        console.log('detail : ', detail);
+        // alert('get 요청 성공!');
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        alert('요청 실패!');
+      });
 
   };
+
 
   const closeDetail = () => {
     setIsModalOpen(false); // 모달 닫기
@@ -109,7 +112,7 @@ function StockInfo() {
   };
   // console.log("selected : ", selectedInfo)
 
-  
+
 
   return (
     <div className="stocks-container">
@@ -138,14 +141,6 @@ function StockInfo() {
       </div>
 
       {isModalOpen && (<StockDetail stock={detail} onClose={closeDetail} />)}
-      {/* <div className="gpt-comment-title">GPT의 한마디</div>
-      <div className="description">
-        {selectedInfo ? (
-          <p>{selectedInfo}</p> // 선택된 주식의 정보 표시
-        ) : (
-          <p>주식을 클릭하면 해당 주식의 ChatGPT의 추천 이유가 표시됩니다.</p>
-        )}
-      </div> */}
     </div>
   );
 }

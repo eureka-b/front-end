@@ -21,16 +21,16 @@ function getPastDates(days) {
 
 function StockDetail({ stock, onClose }) {
     if (!stock || !stock.priceData.length) return null; // stock 데이터가 없으면 아무것도 렌더링하지 않음
-    console.log('stock : ', stock)
+    // console.log('stock : ', stock)
     // 차트 데이터
     const chartData = {
-        labels: getPastDates(5), // 5일 전부터 오늘까지의 날짜로 레이블 설정
+        labels: getPastDates(90), // 5일 전부터 오늘까지의 날짜로 레이블 설정
         datasets: [
             {
                 label: `${stock.name} 주가`,
                 data: stock.priceData, // 주식 가격 데이터
-                borderColor: 'rgba(75, 192, 192, 1)',
-                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderColor: 'rgba(231, 76, 60, 1)',
+                backgroundColor: 'rgba(231, 76, 60, 0.2)',
                 tension: 0.4, // 선의 곡률 설정 (부드럽게)
             },
         ],
@@ -48,7 +48,7 @@ function StockDetail({ stock, onClose }) {
     return (
         <div className="modal-overlay" onClick={onClose}>
             <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-                <button className="close-button" onClick={onClose}>닫기</button>
+                <button className="close-button" onClick={onClose}>❌</button>
                 <h1>{stock.name} 가격 그래프</h1>
                 <p>{stock.description}</p>
                 <div>
