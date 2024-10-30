@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios'; // Axios 사용
 import { useNavigate } from 'react-router-dom';
 import './home.css';
@@ -7,13 +7,63 @@ import Logo from './logo'; // 로고 컴포넌트
 function Home() {
   const [stocks, setStocks] = useState([]); // 주식 목록을 저장하는 상태
   const [selectedStock, setSelectedStock] = useState(''); // 선택된 주식 상태
-  const [hoveredCategory, setHoveredCategory] = useState(null);
   const [showOptions, setShowOptions] = useState(false); // 옵션을 보여줄지 결정하는 상태
   const [selectedItem, setSelectedItem] = useState(''); // 선택된 세부 항목 저장
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false); // 로딩 상태 관리
   const [progress, setProgress] = useState(0); // 진행률
   const [loadingMessage, setLoadingMessage] = useState(''); // 로딩 메시지
+
+  const [visibleStocks, setVisibleStocks] = useState([]); // 렌더링할 주식 목록
+  const [page, setPage] = useState(1); // 현재 페이지 번호
+  const stocksPerPage = 5; // 한 페이지에 표시할 주식 수
+  const listRef = useRef(null); // 스크롤 이벤트 감지를 위한 Ref
+  const [openCategory, setOpenCategory] = useState(null); // 열려 있는 카테고리 상태
+
+
+
+  // 페이지가 변경될 때마다 새 주식 데이터를 렌더링
+  useEffect(() => {
+    const startIndex = (page - 1) * stocksPerPage;
+    const endIndex = startIndex + stocksPerPage;
+    setVisibleStocks((prevStocks) => [
+      ...prevStocks,
+      ...stocks.slice(startIndex, endIndex),
+    ]);
+    console.log(visibleStocks)
+  }, [page]);
+
+  // 스크롤 이벤트 핸들러
+  const handleScroll = () => {
+    if (
+      listRef.current &&
+      listRef.current.scrollTop + listRef.current.clientHeight >= listRef.current.scrollHeight
+    ) {
+      setPage((prevPage) => prevPage + 1); // 다음 페이지로 이동
+    }
+    console.log("scroll!!")
+  };
+
+  useEffect(() => {
+    axios.get(`${process.env.REACT_APP_API_URL}/likedSector`)
+      .then(response => {
+        setStocks(response.data); // 받아온 데이터를 상태로 저장
+        console.log(stocks)
+      })
+      .catch(error => {
+        console.error('Error fetching stocks:', error);
+      });
+
+    console.log('stocks: ', stocks)
+
+    const listElement = listRef.current;
+    if (listElement) {
+      listElement.addEventListener('scroll', handleScroll); // 스크롤 이벤트 리스너 추가
+
+      console.log(listElement)
+      return () => listElement.removeEventListener('scroll', handleScroll); // 정리
+    }
+  }, []);
 
 
   const loadingMessages = [
@@ -28,15 +78,18 @@ function Home() {
   ];
 
   // 주식 목록을 불러오는 함수
-  useEffect(() => {
-    axios.get(`${process.env.REACT_APP_API_URL}/likedSector`)
-      .then(response => {
-        setStocks(response.data); // 받아온 데이터를 상태로 저장
-      })
-      .catch(error => {
-        console.error('Error fetching stocks:', error);
-      });
-  }, []);
+  // useEffect(() => {
+  //   axios.get(`${process.env.REACT_APP_API_URL}/likedSector`)
+  //     .then(response => {
+  //       setStocks(response.data); // 받아온 데이터를 상태로 저장
+  //       console.log(stocks)
+  //     })
+  //     .catch(error => {
+  //       console.error('Error fetching stocks:', error);
+  //     });
+  // }, []);
+
+
 
 
   useEffect(() => {
@@ -45,7 +98,7 @@ function Home() {
       let count = 0;
       const interval = setInterval(() => {
         setProgress((prev) => Math.random() * 5 + prev); // 초당 약 5%씩 진행률 증가
-       
+
 
 
         if (count > 6) {
@@ -63,10 +116,6 @@ function Home() {
   }, [isLoading]);
 
 
-  const handleMouseEnter = (category) => {
-    setHoveredCategory(category);
-    // console.log(hoveredCategory)
-  };
   const handleItemClick = (item) => {
     setSelectedItem(item); // 선택된 세부 항목을 저장
     setShowOptions(false); // 세부 항목 리스트 숨기기
@@ -75,6 +124,10 @@ function Home() {
   // 주식 선택 변경 핸들러
   const handleStockChange = (event) => {
     setSelectedStock(event.target.value);
+  };
+
+  const handleCategoryClick = (index) => {
+    setOpenCategory(openCategory == index ? null : index); // 이미 열려 있으면 닫고, 아니면 엽니다.
   };
 
   // 버튼 클릭 핸들러
@@ -124,79 +177,89 @@ function Home() {
   };
 
 
-  return (
-    <div className="home-container">
-      <div className="logo-container">
-        <Logo /> {/* 로고 컴포넌트 */}
-        <h1 className="title">STOCK DINING</h1>
-      </div>
-
-      {/* 커스텀 select 박스 */}
-      <div className="select-container">
-        <div className="custom-select" onClick={toggleOptions}>
-          {selectedItem || 'Select a category'}
+  if (stocks.length != 0) {
+    return (
+      <div className="home-container">
+        <div className="logo-container">
+          <Logo /> {/* 로고 컴포넌트 */}
+          <h1 className="title">STOCK DINING</h1>
         </div>
 
-        {/* 옵션 리스트 (드롭다운 메뉴) */}
-        {showOptions && (
-          <ul className="category-list">
-            {stocks.map((category, index) => (
-              <li
-                key={index}
-                className="category-item"
-                onMouseEnter={() => handleMouseEnter(category)} // 마우스가 분류에 올라가면 세부 항목 표시
-              >
-                {category.분류}
-
-                {/* 오른쪽에 세부 항목 표시 */}
-                {hoveredCategory?.분류 === category.분류 && ( // hover된 분류와 일치할 때만 출력
-                  <div className="detail-container">
-                    <ul>
-                      {hoveredCategory["세부 항목"].map((item, idx) => (
-                        <li key={idx}
-                          className="detail-list"
-                          onClick={() => handleItemClick(item)}
-                        >{item}</li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
-              </li>
-            ))}
-          </ul>
-        )}
-
-
-      </div>
-      <div className='button-container'>
-        <button onClick={handleFindDiningClick} className="find-button">
-          Find Dining
-        </button>
-      </div>
-      {isLoading && (
-        <div className="loading-container">
-          <div className="spinner"></div>
-          <p className="loading-message">Loading...</p>
-          <div className="progress-bar">
-            <div className="progress" style={{ width: `${progress}%` }}></div>
+        {/* 커스텀 select 박스 */}
+        <div className="select-container">
+          <div className="custom-select" onClick={toggleOptions}>
+            {selectedItem || 'Select a category'}
           </div>
 
-          <p className="loading-message">
-            {loadingMessage && loadingMessage.split("|").map((line, index) => (
-              <React.Fragment key={index}>
-                {index === 0 ? ( // 앞부분은 bold 처리
-                  <span style={{ fontWeight: 'bold' }}>{line}</span>
-                ) : (
-                  <span style={{ fontWeight: 'normal', fontSize: '18px' }}>{line}</span> // 뒷부분은 normal 처리
-                )}
-                <br />
-              </React.Fragment>
-            ))}
-          </p>
-        </div>
-      )}
-    </div>
-  );
-}
+          {/* 옵션 리스트 (드롭다운 메뉴) */}
+          {showOptions && (
+            <ul className="category-list" ref={listRef}>
 
+              <div className="stock-list">
+                {stocks.map((stock, index) => (
+                  <React.Fragment key={index}>
+                    <div
+                      className="category-item">
+                      <div
+                        onClick={() => handleCategoryClick(index)}
+                        className="category-title-container"
+                      >
+                        <span className="category-title">{stock.분류}</span>
+                        <span className={`dropdown-arrow ${openCategory === index ? 'open' : ''}`}>
+                          ▼
+                        </span>
+                      </div>
+                    </div>
+                    <ul className={`detail-container ${openCategory === index ? 'opendetail' : ''}`}>
+                      {stock['세부 항목'].map((item, idx) => (
+                        <li key={idx} className="detail-list"
+                          onClick={() => handleItemClick(item)} // 세부 항목 클릭 핸들러
+                        >
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                  </React.Fragment>
+                ))}
+              </div>
+            </ul>
+          )}
+
+
+        </div>
+        <div className='button-container'>
+          <button onClick={handleFindDiningClick} className="find-button">
+            Find Dining
+          </button>
+        </div>
+        {isLoading && (
+          <div className="loading-container">
+            <div className="spinner"></div>
+            <p className="loading-message">Loading...</p>
+            <div className="progress-bar">
+              <div className="progress" style={{ width: `${progress}%` }}></div>
+            </div>
+
+            <p className="loading-message">
+              {loadingMessage && loadingMessage.split("|").map((line, index) => (
+                <React.Fragment key={index}>
+                  {index === 0 ? ( // 앞부분은 bold 처리
+                    <span style={{ fontWeight: 'bold' }}>{line}</span>
+                  ) : (
+                    <span style={{ fontWeight: 'normal', fontSize: '18px' }}>{line}</span> // 뒷부분은 normal 처리
+                  )}
+                  <br />
+                </React.Fragment>
+              ))}
+            </p>
+          </div>
+        )}
+      </div>
+    );
+  }
+
+  else {
+    return null;
+  }
+}
 export default Home;
