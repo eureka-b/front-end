@@ -78,8 +78,8 @@ function StockInfo() {
         }
         console.log('Response:', response);
         setDetail({
-          name: Object.entries(gptResponse).slice(1)[index][0],
-          description: Object.entries(gptResponse).slice(1)[index][1],
+          name: Object.entries(gptResponse)[index][0],
+          description: Object.entries(gptResponse)[index][1],
           priceData: response.data
         });
         const stockInfo = Object.entries(gptResponse).slice(1)[index][1];
@@ -119,7 +119,7 @@ function StockInfo() {
       <h1 className="stocks-title">TODAY’S STOCKS</h1>
 
       <div className="stocks-list">
-        {Object.entries(gptResponse).slice(1).map((value, index) => (
+        {Object.entries(gptResponse).map((value, index) => (
           <span key={value}
             className='stocks'
             style={{
