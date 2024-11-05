@@ -70,8 +70,10 @@ function StockInfo() {
   }, []);
 
   const handleStockClick = async (index) => {
-    // 주식이 클릭되면 해당 정보를 선택
-    await axios.get(`${process.env.REACT_APP_API_URL}/likedSector/stockPrice/name=${Object.entries(gptResponse).slice(1)[index][0]}`)
+    // 주식이 클릭되면 해당 정보를 선택\
+    
+    console.log(Object.entries(gptResponse)[index][0])
+    await axios.get(`${process.env.REACT_APP_API_URL}/likedSector/stockPrice/name=${Object.entries(gptResponse)[index][0]}`)
       .then(response => {
         if (!response) {
           console.log("response 없음")
@@ -82,7 +84,7 @@ function StockInfo() {
           description: Object.entries(gptResponse)[index][1],
           priceData: response.data
         });
-        const stockInfo = Object.entries(gptResponse).slice(1)[index][1];
+        const stockInfo = Object.entries(gptResponse)[index][1];
         setSelectedInfo(stockInfo);
         setIsModalOpen(true); // 모달을 열기
         console.log('price : ', price)
